@@ -3,6 +3,7 @@ package com.testing.common;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 /** Reads string from file content. */
 public class FileReader {
@@ -28,6 +29,6 @@ public class FileReader {
         try (FileInputStream in = new FileInputStream(file)) {
             in.read(bytes);
         }
-        return new String(bytes);
+        return new String(bytes, Charset.defaultCharset());
     }
 }

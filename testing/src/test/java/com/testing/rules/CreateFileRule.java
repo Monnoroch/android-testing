@@ -1,7 +1,11 @@
 package com.testing.rules;
 
+import static org.apache.maven.artifact.ant.shaded.WriterFactory.UTF_8;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
@@ -31,13 +35,13 @@ public class CreateFileRule implements TestRule {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                PrintWriter writer = new PrintWriter(new FileOutputStream(file), true);
+                PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), UTF_8)), true);
                 writer.println(text);
                 writer.close();
                 try {
                     s.evaluate();
                 } finally {
-                    file.delete();
+                    boolean isFileDeleted = file.delete();
                 }
             }
         };

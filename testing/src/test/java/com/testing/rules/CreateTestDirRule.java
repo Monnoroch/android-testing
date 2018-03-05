@@ -26,11 +26,11 @@ public class CreateTestDirRule implements TestRule {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                DIR.mkdir();
+                boolean isDirCreated = DIR.mkdir();
                 try {
                     s.evaluate();
                 } finally {
-                    DIR.delete();
+                    boolean isDirDeleted = DIR.delete();
                 }
             }
         };

@@ -1,8 +1,12 @@
 package com.testing.user;
 
+import static org.apache.maven.artifact.ant.shaded.WriterFactory.UTF_8;
+
 import com.testing.common.FileReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import org.junit.After;
 import org.junit.Assert;
@@ -23,7 +27,7 @@ public class NameRepositoryWithAnnotationsTest {
      */
     @Before
     public void setUp() throws Exception {
-        PrintWriter writer = new PrintWriter(new FileOutputStream(FILE), true);
+        PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FILE), UTF_8)), true);
         writer.println("{name : Sasha}");
         writer.close();
     }
@@ -45,6 +49,6 @@ public class NameRepositoryWithAnnotationsTest {
      */
     @After
     public void tearDown() {
-        FILE.delete();
+        boolean isFileDeleted = FILE.delete();
     }
 }
