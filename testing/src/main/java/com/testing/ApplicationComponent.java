@@ -9,10 +9,10 @@ import javax.inject.Singleton;
 @Component(modules = {ContextModule.class})
 public interface ApplicationComponent {
 
-    /**
-     * Create user component for injecting components to user fragment.
-     *
-     * @return user component for injecting components to user fragment.
-     */
-    UserComponent createUserComponent();
+  /**
+   * Create user component for injecting components to user fragment.
+   *
+   * @return user component for injecting components to user fragment.
+   */
+  UserComponent createUserComponent();
 }

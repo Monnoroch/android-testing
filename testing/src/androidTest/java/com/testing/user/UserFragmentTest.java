@@ -25,41 +25,46 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 
-/**
- * Tests for {@link UserFragment}.
- */
+/** Tests for {@link UserFragment}. */
 @RunWith(AndroidJUnit4.class)
 public class UserFragmentTest {
 
-    private static final String FILE_CONTENT = "{name : Sasha}";
-    @ClassRule public static TestRule asyncRule = new FragmentAsyncTestRule<>(MainActivity.class, new UserFragment());
-    @Rule public final FragmentTestRule<MainActivity, UserFragment> fragmentRule =
-            new FragmentTestRule<>(MainActivity.class, new UserFragment(), 5);
+  private static final String FILE_CONTENT = "{name : Sasha}";
 
-    File file;
+  @ClassRule
+  public static TestRule asyncRule =
+      new FragmentAsyncTestRule<>(MainActivity.class, new UserFragment());
 
-    /**
-     * Set up.
-     */
-    @Before
-    public void setUp() throws FileNotFoundException {
-        file = new File(fragmentRule.getActivity().getFilesDir().getAbsoluteFile() + File.separator + "test_file");
-        PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), UTF_8)), true);
-        writer.println(FILE_CONTENT);
-        writer.close();
-    }
+  @Rule
+  public final FragmentTestRule<MainActivity, UserFragment> fragmentRule =
+      new FragmentTestRule<>(MainActivity.class, new UserFragment(), 5);
 
-    @Test
-    public void getName() {
-        ActivityUtils.openFragment(fragmentRule.getActivity(), new UserFragment());
-        onView(withText("Sasha")).check(matches(isDisplayed()));
-    }
+  File file;
 
-    /**
-     * Tear down.
-     */
-    @After
-    public void tearDown() {
-        boolean isFileDeleted = file.delete();
-    }
+  /** Set up. */
+  @Before
+  public void setUp() throws FileNotFoundException {
+    file =
+        new File(
+            fragmentRule.getActivity().getFilesDir().getAbsoluteFile()
+                + File.separator
+                + "test_file");
+    PrintWriter writer =
+        new PrintWriter(
+            new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), UTF_8)), true);
+    writer.println(FILE_CONTENT);
+    writer.close();
+  }
+
+  @Test
+  public void getName() {
+    ActivityUtils.openFragment(fragmentRule.getActivity(), new UserFragment());
+    onView(withText("Sasha")).check(matches(isDisplayed()));
+  }
+
+  /** Tear down. */
+  @After
+  public void tearDown() {
+    boolean isFileDeleted = file.delete();
+  }
 }

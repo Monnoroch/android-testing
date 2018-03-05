@@ -10,26 +10,26 @@ import com.testing.MainApplication;
 import java.io.IOException;
 import javax.inject.Inject;
 
-/**
- * Screen that show user name.
- */
+/** Screen that show user name. */
 public class UserFragment extends Fragment {
 
-    @Inject UserPresenter userPresenter;
-    private TextView textView;
+  @Inject UserPresenter userPresenter;
+  private TextView textView;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ((MainApplication) getActivity().getApplication()).getComponent()
-                .createUserComponent()
-                .injectsUserFragment(this);
-        textView = new TextView(getActivity());
-        try {
-            textView.setText(userPresenter.getUserName());
-        } catch (IOException exception) {
-            textView.setText(exception.getMessage());
-        }
-
-        return textView;
+  @Override
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    ((MainApplication) getActivity().getApplication())
+        .getComponent()
+        .createUserComponent()
+        .injectsUserFragment(this);
+    textView = new TextView(getActivity());
+    try {
+      textView.setText(userPresenter.getUserName());
+    } catch (IOException exception) {
+      textView.setText(exception.getMessage());
     }
+
+    return textView;
+  }
 }

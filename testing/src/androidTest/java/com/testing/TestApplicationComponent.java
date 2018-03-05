@@ -10,35 +10,32 @@ import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
 
-/**
- * This class creating ApplicationComponent mock that provides mocked components for tests.
- */
+/** This class creating ApplicationComponent mock that provides mocked components for tests. */
 public class TestApplicationComponent {
 
-    private TestApplicationComponent() {}
+  private TestApplicationComponent() {}
 
-    /**
-     * Create ApplicationComponent mock that provides mocked components for tests.
-     *
-     * @return ApplicationComponent mock.
-     */
-    public static ApplicationComponent create() {
-        ApplicationComponent component = mock(ApplicationComponent.class);
-        when(component.createUserComponent())
-            .thenReturn(DaggerTestApplicationComponent_TestUserComponent.create());
+  /**
+   * Create ApplicationComponent mock that provides mocked components for tests.
+   *
+   * @return ApplicationComponent mock.
+   */
+  public static ApplicationComponent create() {
+    ApplicationComponent component = mock(ApplicationComponent.class);
+    when(component.createUserComponent())
+        .thenReturn(DaggerTestApplicationComponent_TestUserComponent.create());
+    return component;
+  }
 
-        return component;
+  @Singleton
+  @Component(modules = {TestUserModule.class})
+  interface TestUserComponent extends UserComponent {}
+
+  @Module
+  static class TestUserModule {
+    @Provides
+    public UserPresenter provideUserPresenter() {
+      return mock(UserPresenter.class);
     }
-
-    @Singleton
-    @Component(modules = {TestUserModule.class})
-    interface TestUserComponent extends UserComponent{}
-
-    @Module
-    static class TestUserModule {
-        @Provides
-        public UserPresenter provideUserPresenter() {
-            return mock(UserPresenter.class);
-        }
-    }
+  }
 }

@@ -9,22 +9,20 @@ import dagger.Provides;
 @Module
 public class ContextModule {
 
-    private final Context context;
+  private final Context context;
 
-    /**
-     * Create context module instance for providing context.
-     *
-     * @param context - application context.
-     */
-    public ContextModule(Context context) {
-        this.context = context;
-    }
+  /**
+   * Create context module instance for providing context.
+   *
+   * @param context - application context.
+   */
+  public ContextModule(Context context) {
+    this.context = context;
+  }
 
-    /**
-     * Provide application context.
-     */
-    @Provides
-    Context provideContext() {
-        return context;
-    }
+  /** Provide application context. */
+  @Provides
+  Context provideContext() {
+    return context;
+  }
 }

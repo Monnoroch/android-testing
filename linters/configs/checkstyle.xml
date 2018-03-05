@@ -14,7 +14,7 @@
     <!-- See http://checkstyle.sf.net/config_whitespace.html -->
 
     <module name="TreeWalker">
-        <property name="tabWidth" value="4"/>
+        <property name="tabWidth" value="2"/>
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>

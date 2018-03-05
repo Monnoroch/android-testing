@@ -10,6 +10,8 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 /**
+ *
+ *
  * <pre>
  * A {@link TestRule} to be used for testing a {@link Fragment} on async errors, that occurring,
  *     when we use view.post() way to do something after fragment appeared on the screen,
@@ -18,48 +20,47 @@ import org.junit.runners.model.Statement;
  * To use this rule add the following code to the test:
  * </pre>
  *
- * <pre>
- * {@code
+ * <pre>{@code
  * @ClassRule TestRule rule = new FragmentAsyncTestRule(MainActivity.class, new MainFragment());
- * }
- * </pre>
+ * }</pre>
  *
  * @param <A> - the {@link AppCompatActivity} class to launch.
  */
 public class FragmentAsyncTestRule<A extends AppCompatActivity> implements TestRule {
 
-    private final ActivityTestRule<A> activityRule;
-    private final Fragment fragment;
+  private final ActivityTestRule<A> activityRule;
+  private final Fragment fragment;
 
-    /**
-     * Create {@link FragmentAsyncTestRule} object.
-     *
-     * @param activityClass - activity test rule.
-     * @param fragment - fragment for testing.
-     */
-    public FragmentAsyncTestRule(Class<A> activityClass, Fragment fragment) {
-        this.activityRule = new ActivityTestRule<>(activityClass);
-        this.fragment = fragment;
-    }
+  /**
+   * Create {@link FragmentAsyncTestRule} object.
+   *
+   * @param activityClass - activity test rule.
+   * @param fragment - fragment for testing.
+   */
+  public FragmentAsyncTestRule(Class<A> activityClass, Fragment fragment) {
+    this.activityRule = new ActivityTestRule<>(activityClass);
+    this.fragment = fragment;
+  }
 
-    @Override
-    public Statement apply(Statement base, Description description) {
-        return new Statement() {
-            @Override
-            public void evaluate() throws Throwable {
-                try {
-                    // Run all tests in class.
-                    base.evaluate();
-                } finally {
-                    /**
-                     * This block will be executed after tests. It launch activity, opens your fragment and at once opens
-                     * another fragment. Therefore all your fragment's async task will be executed when fragment already destroyed.
-                     */
-                    activityRule.launchActivity(new Intent());
-                    ActivityUtils.openFragment(activityRule.getActivity(), fragment);
-                    ActivityUtils.openFragment(activityRule.getActivity(), new Fragment());
-                }
-            }
-        };
-    }
+  @Override
+  public Statement apply(Statement base, Description description) {
+    return new Statement() {
+      @Override
+      public void evaluate() throws Throwable {
+        try {
+          // Run all tests in class.
+          base.evaluate();
+        } finally {
+          /**
+           * This block will be executed after tests. It launch activity, opens your fragment and at
+           * once opens another fragment. Therefore all your fragment's async task will be executed
+           * when fragment already destroyed.
+           */
+          activityRule.launchActivity(new Intent());
+          ActivityUtils.openFragment(activityRule.getActivity(), fragment);
+          ActivityUtils.openFragment(activityRule.getActivity(), new Fragment());
+        }
+      }
+    };
+  }
 }

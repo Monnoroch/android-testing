@@ -8,6 +8,8 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 /**
+ *
+ *
  * <pre>
  * A {@link TestRule} to be used for testing an {@link AppCompatActivity}.
  * This rule is configured with an {@link android.app.Activity} class. It will:
@@ -20,61 +22,58 @@ import org.junit.runners.model.Statement;
  * To use this rule add the following code to the test:
  * </pre>
  *
- * <pre>
- * {@code
+ * <pre>{@code
  * @Rule public final ActivityTestRule&lt;MainActivity&gt; activityRule =
  *     new ActivityTestRule&lt;&gt;(MainActivity.class);
- * }
- * </pre>
+ * }</pre>
  *
  * @param <A> - the {@link AppCompatActivity} class to launch.
  */
 public class ActivityTestRule<A extends AppCompatActivity> implements TestRule {
 
-    private final android.support.test.rule.ActivityTestRule<A> activityRule;
-    private final RuleChain ruleChain;
+  private final android.support.test.rule.ActivityTestRule<A> activityRule;
+  private final RuleChain ruleChain;
 
-    /**
-     * Create ActivityTestRule instance.
-     *
-     * @param activityClass - class of activity that will be launched.
-     */
-    public ActivityTestRule(Class<A> activityClass) {
-        this.activityRule = new IntentsTestRule<>(activityClass, true, true);
-        ruleChain = RuleChain
-                .outerRule(activityRule)
-                .around(new UnlockScreenRule(activityRule));
-    }
+  /**
+   * Create ActivityTestRule instance.
+   *
+   * @param activityClass - class of activity that will be launched.
+   */
+  public ActivityTestRule(Class<A> activityClass) {
+    this.activityRule = new IntentsTestRule<>(activityClass, true, true);
+    ruleChain = RuleChain.outerRule(activityRule).around(new UnlockScreenRule(activityRule));
+  }
 
-    /**
-     * Get activity rule.
-     *
-     * @return current launched ActivityTestRule instance.
-     */
-    public android.support.test.rule.ActivityTestRule<A> getActivityRule() {
-        return activityRule;
-    }
+  /**
+   * Get activity rule.
+   *
+   * @return current launched ActivityTestRule instance.
+   */
+  public android.support.test.rule.ActivityTestRule<A> getActivityRule() {
+    return activityRule;
+  }
 
-    /**
-     * Helper for running portions of a test on the UI thread. Test will wait before runnable will end executing.
-     *
-     * @param runnable - action that will be executed on UI thread.
-     */
-    public void runOnUiThread(Runnable runnable) throws Throwable {
-        activityRule.runOnUiThread(runnable);
-    }
+  /**
+   * Helper for running portions of a test on the UI thread. Test will wait before runnable will end
+   * executing.
+   *
+   * @param runnable - action that will be executed on UI thread.
+   */
+  public void runOnUiThread(Runnable runnable) throws Throwable {
+    activityRule.runOnUiThread(runnable);
+  }
 
-    /**
-     * Get activity.
-     *
-     * @return activity that should be launched.
-     */
-    public A getActivity() {
-        return activityRule.getActivity();
-    }
+  /**
+   * Get activity.
+   *
+   * @return activity that should be launched.
+   */
+  public A getActivity() {
+    return activityRule.getActivity();
+  }
 
-    @Override
-    public Statement apply(Statement statement, Description description) {
-        return ruleChain.apply(statement, description);
-    }
+  @Override
+  public Statement apply(Statement statement, Description description) {
+    return ruleChain.apply(statement, description);
+  }
 }

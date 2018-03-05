@@ -8,16 +8,14 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
-/**
- * Robolectric tests for {@link MainApplication}.
- */
+/** Robolectric tests for {@link MainApplication}. */
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = 21, application = MainApplication.class)
 public class ApplicationRobolectricTest {
 
-    @Test
-    public void packageName() {
-        MainApplication application = (MainApplication) RuntimeEnvironment.application;
-        assertThat(application.getClass().getName()).isEqualTo("com.testing.MainApplication");
-    }
+  @Test
+  public void packageName() {
+    MainApplication application = (MainApplication) RuntimeEnvironment.application;
+    assertThat(application.getClass().getName()).isEqualTo("com.testing.MainApplication");
+  }
 }

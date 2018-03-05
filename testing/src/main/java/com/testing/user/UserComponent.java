@@ -7,10 +7,10 @@ import dagger.Subcomponent;
 @Subcomponent(modules = {UserModule.class})
 public interface UserComponent {
 
-    /**
-     * Inject components to user fragment.
-     *
-     * @param userFragment - fragment for injecting components.
-     */
-    void injectsUserFragment(UserFragment userFragment);
+  /**
+   * Inject components to user fragment.
+   *
+   * @param userFragment - fragment for injecting components.
+   */
+  void injectsUserFragment(UserFragment userFragment);
 }

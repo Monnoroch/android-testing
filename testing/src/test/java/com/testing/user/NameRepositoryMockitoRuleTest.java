@@ -12,35 +12,31 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-/**
- * Tests for {@link NameRepository}.
- */
+/** Tests for {@link NameRepository}. */
 public class NameRepositoryMockitoRuleTest {
 
-    private static final String FILE_CONTENT = "{name : Sasha}";
-    @Rule public final MockitoRule rule = MockitoJUnit.rule();
+  private static final String FILE_CONTENT = "{name : Sasha}";
+  @Rule public final MockitoRule rule = MockitoJUnit.rule();
 
-    @Mock FileReader fileReader;
-    NameRepository nameRepository;
+  @Mock FileReader fileReader;
+  NameRepository nameRepository;
 
-    /**
-     * Set up.
-     */
-    @Before
-    public void setUp() throws IOException {
-        when(fileReader.readFile()).thenReturn(FILE_CONTENT);
-        nameRepository = new NameRepository(fileReader);
-    }
+  /** Set up. */
+  @Before
+  public void setUp() throws IOException {
+    when(fileReader.readFile()).thenReturn(FILE_CONTENT);
+    nameRepository = new NameRepository(fileReader);
+  }
 
-    @Test
-    public void getName_isSasha() throws Exception {
-        String name = nameRepository.getName();
-        assertThat(name).isEqualTo("Sasha");
-    }
+  @Test
+  public void getName_isSasha() throws Exception {
+    String name = nameRepository.getName();
+    assertThat(name).isEqualTo("Sasha");
+  }
 
-    @Test
-    public void getName_notMia() throws Exception {
-        String name = nameRepository.getName();
-        assertThat(name).isNotEqualTo("Mia");
-    }
+  @Test
+  public void getName_notMia() throws Exception {
+    String name = nameRepository.getName();
+    assertThat(name).isNotEqualTo("Mia");
+  }
 }

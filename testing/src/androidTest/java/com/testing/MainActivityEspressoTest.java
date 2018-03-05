@@ -11,16 +11,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/**
- * Tests for {@link MainApplication} that use Espresso.
- */
+/** Tests for {@link MainApplication} that use Espresso. */
 @RunWith(AndroidJUnit4.class)
 public class MainActivityEspressoTest {
 
-    @Rule public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
+  @Rule
+  public ActivityTestRule<MainActivity> activityTestRule =
+      new ActivityTestRule<>(MainActivity.class);
 
-    @Test
-    public void checkTextViewIsDisplayed() {
-        onView(withId(R.id.container)).check(matches(isDisplayed()));
-    }
+  @Test
+  public void checkTextViewIsDisplayed() {
+    onView(withId(R.id.container)).check(matches(isDisplayed()));
+  }
 }

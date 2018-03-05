@@ -10,19 +10,24 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/**
- * Tests for {@link MainApplication} that use Awaitility.
- */
+/** Tests for {@link MainApplication} that use Awaitility. */
 @RunWith(AndroidJUnit4.class)
 public class MainActivityAwaitilityTest {
 
-    @Rule public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
+  @Rule
+  public ActivityTestRule<MainActivity> activityTestRule =
+      new ActivityTestRule<>(MainActivity.class);
 
-    @Test
-    public void awaitUserFragmentOpened() {
-        await().atMost(5, SECONDS).until(() -> activityTestRule
-                .getActivity()
-                .getSupportFragmentManager()
-                .findFragmentById(R.id.container) instanceof UserFragment);
-    }
+  @Test
+  public void awaitUserFragmentOpened() {
+    await()
+        .atMost(5, SECONDS)
+        .until(
+            () ->
+                activityTestRule
+                        .getActivity()
+                        .getSupportFragmentManager()
+                        .findFragmentById(R.id.container)
+                    instanceof UserFragment);
+  }
 }

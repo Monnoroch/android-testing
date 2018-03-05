@@ -11,6 +11,8 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 /**
+ *
+ *
  * <pre>
  * A {@link TestRule} to be used for testing a {@link Fragment}.
  * This rule is configured with an {@link AppCompatActivity} and a {@link Fragment} classes
@@ -27,95 +29,94 @@ import org.junit.runners.model.Statement;
  * To use this rule add the following code to the test:
  * </pre>
  *
- * <pre>
- * {@code
+ * <pre>{@code
  * @Rule public final FragmentTestRule&lt;MainActivity, LaunchFragment&gt; fragmentRule =
  *     new FragmentTestRule&lt;&gt;(MainActivity.class, new MainFragment(), TestComponent.create(), 10);
- * }
- * </pre>
+ * }</pre>
  *
  * @param <A> - the {@link android.app.Activity} class to launch.
  * @param <F> - the {@link Fragment} class to open.
  */
-public class FragmentTestRule<A extends AppCompatActivity, F extends Fragment>
-    implements TestRule {
+public class FragmentTestRule<A extends AppCompatActivity, F extends Fragment> implements TestRule {
 
-    private ActivityTestRule<A> activityRule;
-    private F fragment;
-    private RuleChain ruleChain;
+  private ActivityTestRule<A> activityRule;
+  private F fragment;
+  private RuleChain ruleChain;
 
-    private RuleChain init(Class<A> activityClass, F fragment) {
-        this.fragment = fragment;
-        this.activityRule = new IntentsTestRule<>(activityClass, true, true);
-        return RuleChain
-                .outerRule(activityRule)
-                .around(new UnlockScreenRule(activityRule));
-    }
+  private RuleChain init(Class<A> activityClass, F fragment) {
+    this.fragment = fragment;
+    this.activityRule = new IntentsTestRule<>(activityClass, true, true);
+    return RuleChain.outerRule(activityRule).around(new UnlockScreenRule(activityRule));
+  }
 
-    /**
-     * Create FragmentTestRule instance that doesn't replace dagger component.
-     *
-     * @param activityClass - class of activity that will be launched.
-     * @param fragment - fragment for opening.
-     * @param timeoutSec - timeout for opening fragment.
-     */
-    public FragmentTestRule(Class<A> activityClass, F fragment, int timeoutSec) {
-        ruleChain = init(activityClass, fragment)
-                .around(new OpenFragmentRule<>(activityRule, fragment, timeoutSec));
-    }
+  /**
+   * Create FragmentTestRule instance that doesn't replace dagger component.
+   *
+   * @param activityClass - class of activity that will be launched.
+   * @param fragment - fragment for opening.
+   * @param timeoutSec - timeout for opening fragment.
+   */
+  public FragmentTestRule(Class<A> activityClass, F fragment, int timeoutSec) {
+    ruleChain =
+        init(activityClass, fragment)
+            .around(new OpenFragmentRule<>(activityRule, fragment, timeoutSec));
+  }
 
-    /**
-     * Create FragmentTestRule instance that replace dagger component.
-     *
-     * @param activityClass - class of activity that will be launched.
-     * @param fragment - fragment for opening.
-     * @param timeoutSec - timeout for opening fragment.
-     * @param component - dagger test component for replacing.
-     */
-    public FragmentTestRule(Class<A> activityClass, F fragment, int timeoutSec, ApplicationComponent component) {
-        ruleChain = init(activityClass, fragment)
-                .around(new TestDaggerComponentRule<>(activityRule, component))
-                .around(new OpenFragmentRule<>(activityRule, fragment, timeoutSec));
-    }
+  /**
+   * Create FragmentTestRule instance that replace dagger component.
+   *
+   * @param activityClass - class of activity that will be launched.
+   * @param fragment - fragment for opening.
+   * @param timeoutSec - timeout for opening fragment.
+   * @param component - dagger test component for replacing.
+   */
+  public FragmentTestRule(
+      Class<A> activityClass, F fragment, int timeoutSec, ApplicationComponent component) {
+    ruleChain =
+        init(activityClass, fragment)
+            .around(new TestDaggerComponentRule<>(activityRule, component))
+            .around(new OpenFragmentRule<>(activityRule, fragment, timeoutSec));
+  }
 
-    /**
-     * Get activity rule.
-     *
-     * @return current launched ActivityTestRule instance.
-     */
-    public ActivityTestRule<A> getActivityRule() {
-        return activityRule;
-    }
+  /**
+   * Get activity rule.
+   *
+   * @return current launched ActivityTestRule instance.
+   */
+  public ActivityTestRule<A> getActivityRule() {
+    return activityRule;
+  }
 
-    /**
-     * Get fragment that will be opened.
-     *
-     * @return fragment for opening.
-     */
-    public F getFragment() {
-        return fragment;
-    }
+  /**
+   * Get fragment that will be opened.
+   *
+   * @return fragment for opening.
+   */
+  public F getFragment() {
+    return fragment;
+  }
 
-    /**
-     * Helper for running portions of a test on the UI thread. Test will wait before runnable will end executing.
-     *
-     * @param runnable - action that will be executed on UI thread.
-     */
-    public void runOnUiThread(Runnable runnable) throws Throwable {
-        activityRule.runOnUiThread(runnable);
-    }
+  /**
+   * Helper for running portions of a test on the UI thread. Test will wait before runnable will end
+   * executing.
+   *
+   * @param runnable - action that will be executed on UI thread.
+   */
+  public void runOnUiThread(Runnable runnable) throws Throwable {
+    activityRule.runOnUiThread(runnable);
+  }
 
-    /**
-     * Get activity.
-     *
-     * @return activity that should be launched.
-     */
-    public A getActivity() {
-        return activityRule.getActivity();
-    }
+  /**
+   * Get activity.
+   *
+   * @return activity that should be launched.
+   */
+  public A getActivity() {
+    return activityRule.getActivity();
+  }
 
-    @Override
-    public Statement apply(Statement statement, Description description) {
-        return ruleChain.apply(statement, description);
-    }
+  @Override
+  public Statement apply(Statement statement, Description description) {
+    return ruleChain.apply(statement, description);
+  }
 }

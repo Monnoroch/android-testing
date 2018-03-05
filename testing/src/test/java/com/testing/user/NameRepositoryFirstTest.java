@@ -11,36 +11,38 @@ import java.io.PrintWriter;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Tests for {@link NameRepository}.
- */
+/** Tests for {@link NameRepository}. */
 public class NameRepositoryFirstTest {
 
-    private static final File FILE = new File("test_file");
+  private static final File FILE = new File("test_file");
 
-    NameRepository nameRepository = new NameRepository(new FileReader(FILE));
+  NameRepository nameRepository = new NameRepository(new FileReader(FILE));
 
-    @Test
-    public void getName_isSasha() throws Exception {
-        PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FILE), UTF_8)), true);
-        writer.println("{name : Sasha}");
-        writer.close();
+  @Test
+  public void getName_isSasha() throws Exception {
+    PrintWriter writer =
+        new PrintWriter(
+            new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FILE), UTF_8)), true);
+    writer.println("{name : Sasha}");
+    writer.close();
 
-        String name = nameRepository.getName();
-        Assert.assertEquals(name, "Sasha");
+    String name = nameRepository.getName();
+    Assert.assertEquals(name, "Sasha");
 
-        boolean isFileDeleted = FILE.delete();
-    }
+    boolean isFileDeleted = FILE.delete();
+  }
 
-    @Test
-    public void getName_notMia() throws Exception {
-        PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FILE), UTF_8)), true);
-        writer.println("{name : Sasha}");
-        writer.close();
+  @Test
+  public void getName_notMia() throws Exception {
+    PrintWriter writer =
+        new PrintWriter(
+            new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FILE), UTF_8)), true);
+    writer.println("{name : Sasha}");
+    writer.close();
 
-        String name = nameRepository.getName();
-        Assert.assertNotEquals(name, "Mia");
+    String name = nameRepository.getName();
+    Assert.assertNotEquals(name, "Mia");
 
-        boolean isFileDeleted = FILE.delete();
-    }
+    boolean isFileDeleted = FILE.delete();
+  }
 }

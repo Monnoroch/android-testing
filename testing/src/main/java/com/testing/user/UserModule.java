@@ -14,42 +14,34 @@ import javax.inject.Qualifier;
 @Module
 public class UserModule {
 
-    /**
-     * Provide user data repository.
-     */
-    @Provides
-    UserPresenter provideUserPresenter(@Private NameRepository nameRepository) {
-        return new UserPresenter(nameRepository);
-    }
+  /** Provide user data repository. */
+  @Provides
+  UserPresenter provideUserPresenter(@Private NameRepository nameRepository) {
+    return new UserPresenter(nameRepository);
+  }
 
-    /**
-     * Provide user data repository.
-     */
-    @Private
-    @Provides
-    NameRepository provideNameRepository(@Private FileReader fileReader) {
-        return new NameRepository(fileReader);
-    }
+  /** Provide user data repository. */
+  @Private
+  @Provides
+  NameRepository provideNameRepository(@Private FileReader fileReader) {
+    return new NameRepository(fileReader);
+  }
 
-    /**
-     * Provide file reader.
-     */
-    @Private
-    @Provides
-    FileReader provideFileReader(@Private File file) {
-        return new FileReader(file);
-    }
+  /** Provide file reader. */
+  @Private
+  @Provides
+  FileReader provideFileReader(@Private File file) {
+    return new FileReader(file);
+  }
 
-    /**
-     * Provide file.
-     */
-    @Private
-    @Provides
-    File provideFile(Context context) {
-        return new File(context.getFilesDir().getAbsoluteFile() + File.separator + "test_file");
-    }
+  /** Provide file. */
+  @Private
+  @Provides
+  File provideFile(Context context) {
+    return new File(context.getFilesDir().getAbsoluteFile() + File.separator + "test_file");
+  }
 
-    @Qualifier
-    @Retention(RetentionPolicy.RUNTIME)
-    private @interface Private {}
+  @Qualifier
+  @Retention(RetentionPolicy.RUNTIME)
+  private @interface Private {}
 }
