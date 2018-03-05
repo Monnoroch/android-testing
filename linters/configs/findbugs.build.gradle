@@ -1,0 +1,28 @@
+subprojects {
+    def isAndroidLibrary = project.getPlugins().hasPlugin('com.android.library')
+
+    apply plugin: 'findbugs'
+
+    task customFindbugs(type: FindBugs) {
+        ignoreFailures = true
+        effort = "max"
+        reportLevel = "medium"
+        if (isAndroidLibrary) {
+            classes = files("${project.buildDir}/intermediates/classes")
+        } else {
+            classes = files("${project.buildDir}/classes")
+        }
+        excludeFilter = file("${rootProject.projectDir}/linters/configs/findbugs.xml")
+        source = fileTree('src')
+        classpath = files()
+        reports {
+            xml.enabled = true
+            xml.destination "${rootProject.buildDir}/linters/${project.name}.findbugs.xml"
+        }
+    }
+}
+
+task runFindbugs
+subprojects {
+    project -> runFindbugs.dependsOn("${project.path}:customFindbugs")
+}

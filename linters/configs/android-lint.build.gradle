@@ -1,0 +1,23 @@
+subprojects {
+    def isAndroidLibrary = project.getPlugins().hasPlugin('com.android.library')
+
+    if (isAndroidLibrary) {
+        android {
+            lintOptions {
+                quiet false
+                abortOnError false
+                ignoreWarnings false
+                lintConfig file("${rootProject.projectDir}/linters/configs/android-lint.xml")
+                xmlReport true
+                xmlOutput file("${rootProject.buildDir}/linters/${project.name}.androidlint.xml")
+                htmlReport false
+            }
+        }
+
+        project.afterEvaluate {
+            runAndroidLint.dependsOn("${project.path}:lint")
+        }
+    }
+}
+
+task runAndroidLint

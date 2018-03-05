@@ -1,0 +1,22 @@
+subprojects {
+    apply plugin: 'checkstyle'
+    checkstyle {
+        toolVersion = '7.1.1'
+    }
+
+    task customCheckstyle(type: Checkstyle) {
+        ignoreFailures = true
+        configFile file("${rootProject.projectDir}/linters/configs/checkstyle.xml")
+        source = fileTree('src')
+        classpath = files()
+        reports {
+            xml.enabled = true
+            xml.destination "${rootProject.buildDir}/linters/${project.name}.checkstyle.xml"
+        }
+    }
+}
+
+task runCheckstyle
+subprojects {
+    project -> runCheckstyle.dependsOn("${project.path}:customCheckstyle")
+}

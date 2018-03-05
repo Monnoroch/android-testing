@@ -1,0 +1,13 @@
+subprojects {
+    apply plugin: 'net.ltgt.errorprone'
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs += [
+                '-XepDisableWarningsInGeneratedCode'
+        ]
+    }
+
+    configurations.errorprone {
+        resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.21'
+    }
+}

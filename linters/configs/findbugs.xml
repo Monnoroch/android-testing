@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- http://stackoverflow.com/questions/7568579/eclipsefindbugs-exclude-filter-files-doesnt-work -->
+    <!-- Ignore warnings about auto-generated code -->
+    <Match>
+        <Class name="~.*\.R\$.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*\.Manifest\$.*"/>
+    </Match>
+    <Match>
+        <!-- Ignore files containing "proto" in their package.-->
+        <!-- Avoids checking classes generated from proto files.-->
+        <Package name="~.*\.proto" />
+    </Match>
+    <!-- Ignore all NM_SAME_SIMPLE_NAME_AS_SUPERCLASS -->
+    <Match>
+        <Bug pattern="NM_SAME_SIMPLE_NAME_AS_SUPERCLASS"/>
+    </Match>
+    <Match>
+        <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+    </Match>
+</FindBugsFilter>
