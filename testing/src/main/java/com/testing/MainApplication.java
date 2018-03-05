@@ -3,9 +3,7 @@ package com.testing;
 import android.app.Application;
 import android.support.annotation.VisibleForTesting;
 
-/**
- * Represents an application context of the application.
- */
+/** Represents an application context of the application. */
 public class MainApplication extends Application {
 
     private ApplicationComponent component;

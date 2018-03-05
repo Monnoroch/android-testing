@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.testing.common.FileReader;
 import java.io.IOException;
 
-/**
- * Reads user name from file.
- */
+/** Reads user name from file. */
 public class NameRepository {
 
     private final FileReader fileReader;

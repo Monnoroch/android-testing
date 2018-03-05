@@ -4,9 +4,7 @@ import com.testing.user.UserComponent;
 import dagger.Component;
 import javax.inject.Singleton;
 
-/**
- * Application component that provides all common components.
- */
+/** Application component that provides all common components. */
 @Singleton
 @Component(modules = {ContextModule.class})
 public interface ApplicationComponent {

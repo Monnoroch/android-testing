@@ -2,9 +2,7 @@ package com.testing.user;
 
 import java.io.IOException;
 
-/**
- * Presenter that get information related to user.
- */
+/** Presenter that get information related to user. */
 public class UserPresenter {
 
     private final NameRepository nameRepository;

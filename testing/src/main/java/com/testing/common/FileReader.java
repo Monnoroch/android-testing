@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-/**
- * Reads string from file content.
- */
+/** Reads string from file content. */
 public class FileReader {
 
     private final File file;

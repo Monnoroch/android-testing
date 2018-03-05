@@ -1,5 +1,5 @@
 subprojects {
-    def isAndroidLibrary = project.getPlugins().hasPlugin('com.android.library')
+    def isAndroidLibrary = project.getPlugins().hasPlugin('com.android.application')
 
     apply plugin: 'findbugs'
 

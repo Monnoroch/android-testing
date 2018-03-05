@@ -1,8 +1,6 @@
 package com.testing.user;
 
-/**
- * Describes user model.
- */
+/** Describes user model. */
 public class User {
 
     private String name;
