@@ -19,12 +19,12 @@ public class UserFragment extends Fragment {
 
   @Override
   public View onCreateView(
-          LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     NameRepository nameRepository =
-            new NameRepository(
-                    new FileReader(
-                            new File(
-                                    getContext().getFilesDir().getAbsoluteFile() + File.separator + "test_file")));
+        new NameRepository(
+            new FileReader(
+                new File(
+                    getContext().getFilesDir().getAbsoluteFile() + File.separator + "test_file")));
     textView = new TextView(getActivity());
     try {
       name = nameRepository.getName();

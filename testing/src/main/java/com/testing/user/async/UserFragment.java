@@ -19,12 +19,12 @@ public class UserFragment extends Fragment {
 
   @Override
   public View onCreateView(
-          LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     NameRepository nameRepository =
-            new NameRepository(
-                    new FileReader(
-                            new File(
-                                    getContext().getFilesDir().getAbsoluteFile() + File.separator + "test_file")));
+        new NameRepository(
+            new FileReader(
+                new File(
+                    getContext().getFilesDir().getAbsoluteFile() + File.separator + "test_file")));
     textView = new TextView(getActivity());
     try {
       name = nameRepository.getName();
@@ -32,17 +32,18 @@ public class UserFragment extends Fragment {
       textView.setText(exception.getMessage());
       return textView;
     }
-    textView.post(() -> {
-      if (textView == null) {
-        return;
-      }
-      int nameWidth = textView.getWidth();
-      if (nameWidth == 0) {
-        textView.setText("Width of name is equals to 0");
-      } else {
-        textView.setText(String.format("Width of name %s = %d", name, nameWidth));
-      }
-    });
+    textView.post(
+        () -> {
+          if (textView == null) {
+            return;
+          }
+          int nameWidth = textView.getWidth();
+          if (nameWidth == 0) {
+            textView.setText("Width of name is equals to 0");
+          } else {
+            textView.setText(String.format("Width of name %s = %d", name, nameWidth));
+          }
+        });
 
     return textView;
   }
