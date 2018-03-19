@@ -1,16 +1,17 @@
-package com.testing.user;
+package com.testing.user.async.zerowidth;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.hamcrest.Matchers.containsString;
 
 import android.support.test.runner.AndroidJUnit4;
 import com.testing.MainActivity;
 import com.testing.common.ActivityUtils;
+import com.testing.rules.FragmentAsyncTestRule;
 import com.testing.rules.FragmentTestRule;
-import com.testing.user.dagger.UserFragment;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,8 +20,10 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 
 /** Tests for {@link UserFragment}. */
@@ -29,9 +32,13 @@ public class UserFragmentTest {
 
   private static final String FILE_CONTENT = "{name : Sasha}";
 
+  @ClassRule
+  public static TestRule asyncRule =
+      new FragmentAsyncTestRule<>(MainActivity.class, new com.testing.user.async.UserFragment());
+
   @Rule
-  public final FragmentTestRule<MainActivity, UserFragment> fragmentRule =
-      new FragmentTestRule<>(MainActivity.class, new UserFragment(), 5);
+  public final FragmentTestRule<MainActivity, com.testing.user.async.UserFragment> fragmentRule =
+      new FragmentTestRule<>(MainActivity.class, new com.testing.user.async.UserFragment(), 5);
 
   File file;
 
@@ -51,9 +58,9 @@ public class UserFragmentTest {
   }
 
   @Test
-  public void getName() {
+  public void checkWidthIsZero() {
     ActivityUtils.openFragment(fragmentRule.getActivity(), new UserFragment());
-    onView(withText("Sasha")).check(matches(isDisplayed()));
+    onView(withText(containsString("Width of name is equals to 0"))).check(matches(isDisplayed()));
   }
 
   /** Tear down. */

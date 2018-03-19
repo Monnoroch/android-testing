@@ -17,7 +17,7 @@ public class UserPresenter {
   }
 
   /** Get user name. */
-  String getUserName() throws IOException {
+  public String getUserName() throws IOException {
     return nameRepository.getName();
   }
 }
