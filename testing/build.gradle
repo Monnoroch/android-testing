@@ -1,0 +1,88 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'net.ltgt.errorprone'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        minSdkVersion 21
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.google.code.findbugs:jsr305:3.0.0'
+    }
+}
+
+dependencies {
+    compile group: 'findbugs', name: 'annotations', version: '1.0.0'
+    compile "com.android.support:appcompat-v7:26.1.0"
+    compile 'com.google.dagger:dagger:2.7'
+    compile 'com.android.support:multidex:1.0.3'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.7'
+    compile 'com.google.guava:guava:20.0'
+    compile 'com.google.errorprone:error_prone_annotations:2.0.18'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
+    testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.7'
+    androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.7'
+
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-inline:2.7.22"
+    testCompile 'com.google.truth:truth:0.34'
+    testCompile "org.robolectric:robolectric:3.7.1"
+
+    androidTestCompile "org.mockito:mockito-android:2.7.22"
+    androidTestCompile 'com.google.truth:truth:0.34'
+    androidTestCompile 'org.awaitility:awaitility:3.0.0'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.2') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile('com.android.support.test:runner:0.5') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+}
+
+/**
+ * This will create the directory build/generated/source/apt/test/ as a Java classes recipient.
+ * Also this will run "assemble{BuildName}UnitTest" task that will generate classes (like Dagger2 components) in this folder.
+ */
+android.applicationVariants.all { variant ->
+    def name = variant.buildType.name
+
+    if (name.contentEquals("debug")) {
+        def aptOutputDir = new File(buildDir, "generated/source/apt/${variant.unitTestVariant.dirName}")
+        variant.unitTestVariant.addJavaSourceFoldersToModel(aptOutputDir)
+        assembleDebug.finalizedBy("assembleDebugUnitTest")
+    }
+}
