@@ -5,13 +5,19 @@ import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.internal.schedulers.ExecutorScheduler;
 import io.reactivex.plugins.RxJavaPlugins;
+import io.reactivex.schedulers.TestScheduler;
 import java.util.concurrent.TimeUnit;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-/** A class that change RxJava schedulers to Immediate scheduler for immediate actions in tests. */
+/**
+ * A class that changes RxJava schedulers to Immediate and Test schedulers for immediate actions in
+ * tests and waiting timeouts for testing RxJava timeout in host java tests.
+ */
 public class RxImmediateSchedulerRule implements TestRule {
+
+  private static final TestScheduler TEST_SCHEDULER = new TestScheduler();
 
   private Scheduler immediate =
       new Scheduler() {
@@ -32,9 +38,9 @@ public class RxImmediateSchedulerRule implements TestRule {
     return new Statement() {
       @Override
       public void evaluate() throws Throwable {
-        RxJavaPlugins.setIoSchedulerHandler(scheduler -> immediate);
-        RxJavaPlugins.setComputationSchedulerHandler(scheduler -> immediate);
-        RxJavaPlugins.setNewThreadSchedulerHandler(scheduler -> immediate);
+        RxJavaPlugins.setIoSchedulerHandler(scheduler -> TEST_SCHEDULER);
+        RxJavaPlugins.setComputationSchedulerHandler(scheduler -> TEST_SCHEDULER);
+        RxJavaPlugins.setNewThreadSchedulerHandler(scheduler -> TEST_SCHEDULER);
         RxAndroidPlugins.setMainThreadSchedulerHandler(scheduler -> immediate);
         try {
           base.evaluate();
@@ -44,5 +50,14 @@ public class RxImmediateSchedulerRule implements TestRule {
         }
       }
     };
+  }
+
+  /**
+   * Get test scheduler for testing RxJava timeout.
+   *
+   * @return {@link TestScheduler} object for testing RxJava timeout.
+   */
+  public TestScheduler getTestScheduler() {
+    return TEST_SCHEDULER;
   }
 }

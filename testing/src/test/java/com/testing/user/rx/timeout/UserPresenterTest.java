@@ -4,7 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.testing.rules.RxTimeoutTestSchedulerRule;
+import com.testing.rules.RxImmediateSchedulerRule;
 import com.testing.user.rx.NameRepository;
 import io.reactivex.subjects.PublishSubject;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +23,7 @@ public class UserPresenterTest {
   private static final int TIMEOUT_SEC = 2;
   private static final String NAME = "Sasha";
   @Rule public final MockitoRule rule = MockitoJUnit.rule();
-  @Rule public final RxTimeoutTestSchedulerRule timeoutRule = new RxTimeoutTestSchedulerRule();
+  @Rule public final RxImmediateSchedulerRule timeoutRule = new RxImmediateSchedulerRule();
 
   @Mock UserPresenter.Listener listener;
   @Mock NameRepository nameRepository;

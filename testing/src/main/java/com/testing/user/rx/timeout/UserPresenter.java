@@ -2,7 +2,6 @@ package com.testing.user.rx.timeout;
 
 import com.testing.user.rx.NameRepository;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.concurrent.TimeUnit;
 
@@ -25,14 +24,13 @@ public class UserPresenter {
   }
 
   public void getUserName() {
-    Disposable disposable =
-        nameRepository
-            .getName()
-            .timeout(TIMEOUT_SEC, TimeUnit.SECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                listener::onUserNameLoaded,
-                error -> listener.onGettingUserNameError(error.getMessage()));
+    nameRepository
+        .getName()
+        .timeout(TIMEOUT_SEC, TimeUnit.SECONDS)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            listener::onUserNameLoaded,
+            error -> listener.onGettingUserNameError(error.getMessage()));
   }
 }

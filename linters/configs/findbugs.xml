@@ -20,4 +20,8 @@
     <Match>
         <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
     </Match>
+    <!-- Disable bug type RV_RETURN_VALUE_IGNORED_BAD_PRACTICE -->
+    <Match>
+        <Bug code="RV"/>
+    </Match>
 </FindBugsFilter>

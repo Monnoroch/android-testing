@@ -16,6 +16,7 @@ public class MainApplicationTest {
   @Test
   public void packageName() {
     MainApplication application = (MainApplication) RuntimeEnvironment.application;
-    assertThat(application.getClass().getName()).isEqualTo("com.testing.robolectric.MainApplication");
+    assertThat(application.getClass().getName())
+        .isEqualTo("com.testing.robolectric.MainApplication");
   }
 }

@@ -17,8 +17,7 @@ public class UserFragmentTest {
 
   @Rule
   public final FragmentTestRule<MainActivity, UserFragment> fragmentRule =
-      new FragmentTestRule<>(
-          MainActivity.class, userFragment, TestApplicationComponent.create());
+      new FragmentTestRule<>(MainActivity.class, userFragment, TestApplicationComponent.create());
 
   @Test
   public void getName() throws Throwable {

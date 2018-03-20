@@ -57,8 +57,7 @@ public class FragmentTestRule<A extends AppCompatActivity, F extends Fragment> i
    */
   public FragmentTestRule(Class<A> activityClass, F fragment) {
     ruleChain =
-        init(activityClass, fragment)
-            .around(new OpenFragmentRule<>(activityRule, fragment));
+        init(activityClass, fragment).around(new OpenFragmentRule<>(activityRule, fragment));
   }
 
   /**
@@ -68,8 +67,7 @@ public class FragmentTestRule<A extends AppCompatActivity, F extends Fragment> i
    * @param fragment - fragment for opening.
    * @param component - dagger test component for replacing.
    */
-  public FragmentTestRule(
-      Class<A> activityClass, F fragment, ApplicationComponent component) {
+  public FragmentTestRule(Class<A> activityClass, F fragment, ApplicationComponent component) {
     ruleChain =
         init(activityClass, fragment)
             .around(new TestDaggerComponentRule<>(activityRule, component))
