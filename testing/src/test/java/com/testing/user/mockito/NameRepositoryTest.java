@@ -10,7 +10,6 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-/** Tests for {@link NameRepository}. */
 public class NameRepositoryTest {
 
   private static final String FILE_CONTENT = "{name : Sasha}";
@@ -18,7 +17,6 @@ public class NameRepositoryTest {
   FileReader fileReader = mock(FileReader.class);
   NameRepository nameRepository = new NameRepository(fileReader);
 
-  /** Set up. */
   @Before
   public void setUp() throws IOException {
     when(fileReader.readFile()).thenReturn(FILE_CONTENT);

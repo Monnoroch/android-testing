@@ -42,7 +42,7 @@ public class CreateFileRule implements TestRule {
         try {
           s.evaluate();
         } finally {
-          boolean isFileDeleted = file.delete();
+          file.delete();
         }
       }
     };

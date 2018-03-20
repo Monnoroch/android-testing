@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import org.junit.Assert;
 import org.junit.Test;
 
-/** Tests for {@link NameRepository}. */
 public class NameRepositoryTest {
 
   private static final File FILE = new File("test_file");
@@ -30,7 +29,7 @@ public class NameRepositoryTest {
     String name = nameRepository.getName();
     Assert.assertEquals(name, "Sasha");
 
-    boolean isFileDeleted = FILE.delete();
+    FILE.delete();
   }
 
   @Test
@@ -44,6 +43,6 @@ public class NameRepositoryTest {
     String name = nameRepository.getName();
     Assert.assertNotEquals(name, "Mia");
 
-    boolean isFileDeleted = FILE.delete();
+    FILE.delete();
   }
 }

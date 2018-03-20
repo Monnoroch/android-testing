@@ -11,13 +11,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Tests for {@link UserFragment}. */
 @RunWith(AndroidJUnit4.class)
 public class UserFragmentTest {
 
   @Rule
   public final FragmentTestRule<MainActivity, UserFragment> fragmentRule =
-      new FragmentTestRule<>(MainActivity.class, new UserFragment(), 5);
+      new FragmentTestRule<>(MainActivity.class, new UserFragment());
 
   @Test
   public void checkFragmentOpened() {

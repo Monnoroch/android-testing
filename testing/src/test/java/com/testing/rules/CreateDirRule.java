@@ -6,17 +6,17 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 /** Class that creates test dir before test and remove this dir after test. */
-public class CreateTestDirRule implements TestRule {
+public class CreateDirRule implements TestRule {
 
-  private static final File DIR = new File("tests");
+  private final File dir;
 
   /**
-   * Get full path to test dir.
+   * Create {@link CreateDirRule} instance.
    *
-   * @return path of test dir.
+   * @param dir - dir that will be created.
    */
-  public static String getDirPath() {
-    return DIR.getAbsolutePath();
+  public CreateDirRule(File dir) {
+    this.dir = dir;
   }
 
   @Override
@@ -24,11 +24,11 @@ public class CreateTestDirRule implements TestRule {
     return new Statement() {
       @Override
       public void evaluate() throws Throwable {
-        boolean isDirCreated = DIR.mkdir();
+        dir.mkdir();
         try {
           s.evaluate();
         } finally {
-          boolean isDirDeleted = DIR.delete();
+          dir.delete();
         }
       }
     };

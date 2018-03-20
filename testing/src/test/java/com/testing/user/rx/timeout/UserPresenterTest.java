@@ -17,7 +17,6 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 
-/** Tests for {@link UserPresenter}. */
 @RunWith(RobolectricTestRunner.class)
 public class UserPresenterTest {
 
@@ -31,7 +30,6 @@ public class UserPresenterTest {
   PublishSubject<String> nameObservable = PublishSubject.create();
   UserPresenter presenter;
 
-  /** Set up. */
   @Before
   public void setUp() {
     when(nameRepository.getName()).thenReturn(nameObservable);

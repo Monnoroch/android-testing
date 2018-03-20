@@ -22,19 +22,17 @@ class OpenFragmentRule<A extends AppCompatActivity> implements TestRule {
 
   private final ActivityTestRule<A> activityRule;
   private final Fragment fragment;
-  private final int timeoutSec;
+  private final int timeoutSec = 5;
 
   /**
    * Create fragment test rule, don't forget to add @Rule.
    *
    * @param activityRule - Activity Test Rule for starting fragment.
    * @param fragment - fragment for opening.
-   * @param timeoutSec - timeout for opening fragment.
    */
-  OpenFragmentRule(ActivityTestRule<A> activityRule, Fragment fragment, int timeoutSec) {
+  OpenFragmentRule(ActivityTestRule<A> activityRule, Fragment fragment) {
     this.activityRule = activityRule;
     this.fragment = fragment;
-    this.timeoutSec = timeoutSec;
   }
 
   @Override

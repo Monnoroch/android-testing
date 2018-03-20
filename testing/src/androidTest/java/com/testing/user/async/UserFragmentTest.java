@@ -26,7 +26,6 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 
-/** Tests for {@link UserFragment}. */
 @RunWith(AndroidJUnit4.class)
 public class UserFragmentTest {
 
@@ -38,11 +37,10 @@ public class UserFragmentTest {
 
   @Rule
   public final FragmentTestRule<MainActivity, UserFragment> fragmentRule =
-      new FragmentTestRule<>(MainActivity.class, new UserFragment(), 5);
+      new FragmentTestRule<>(MainActivity.class, new UserFragment());
 
   File file;
 
-  /** Set up. */
   @Before
   public void setUp() throws FileNotFoundException {
     file =
@@ -63,9 +61,8 @@ public class UserFragmentTest {
     onView(withText(containsString("Width of name Sasha ="))).check(matches(isDisplayed()));
   }
 
-  /** Tear down. */
   @After
   public void tearDown() {
-    boolean isFileDeleted = file.delete();
+    file.delete();
   }
 }

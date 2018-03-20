@@ -14,14 +14,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-/** Tests for {@link NameRepository}. */
 public class NameRepositoryTest {
 
   private static final File FILE = new File("test_file");
 
   NameRepository nameRepository = new NameRepository(new FileReader(FILE));
 
-  /** Set up. */
   @Before
   public void setUp() throws Exception {
     PrintWriter writer =
@@ -43,9 +41,8 @@ public class NameRepositoryTest {
     Assert.assertNotEquals(name, "Mia");
   }
 
-  /** Tear down. */
   @After
   public void tearDown() {
-    boolean isFileDeleted = FILE.delete();
+    FILE.delete();
   }
 }

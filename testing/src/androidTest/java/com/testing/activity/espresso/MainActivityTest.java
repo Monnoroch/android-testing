@@ -8,13 +8,11 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import com.testing.MainActivity;
-import com.testing.MainApplication;
 import com.testing.R;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Tests for {@link MainApplication} that use Espresso. */
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 

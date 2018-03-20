@@ -7,14 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.testing.MainApplication;
-import com.testing.user.UserPresenter;
+import com.testing.user.NameRepository;
 import java.io.IOException;
 import javax.inject.Inject;
 
-/** Screen that show user name. */
 public class UserFragment extends Fragment {
 
-  @Inject public UserPresenter userPresenter;
+  @Inject public NameRepository nameRepository;
   private TextView textView;
 
   @Override
@@ -26,7 +25,7 @@ public class UserFragment extends Fragment {
         .injectsUserFragment(this);
     textView = new TextView(getActivity());
     try {
-      textView.setText(userPresenter.getUserName());
+      textView.setText(nameRepository.getName());
     } catch (IOException exception) {
       textView.setText(exception.getMessage());
     }

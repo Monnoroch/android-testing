@@ -3,7 +3,8 @@ subprojects {
 
     tasks.withType(JavaCompile) {
         options.compilerArgs += [
-                '-XepDisableWarningsInGeneratedCode'
+                '-XepDisableWarningsInGeneratedCode',
+                '-Xep:CheckReturnValue:OFF'
         ]
     }
 

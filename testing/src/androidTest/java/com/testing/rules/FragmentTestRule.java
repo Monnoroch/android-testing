@@ -54,12 +54,11 @@ public class FragmentTestRule<A extends AppCompatActivity, F extends Fragment> i
    *
    * @param activityClass - class of activity that will be launched.
    * @param fragment - fragment for opening.
-   * @param timeoutSec - timeout for opening fragment.
    */
-  public FragmentTestRule(Class<A> activityClass, F fragment, int timeoutSec) {
+  public FragmentTestRule(Class<A> activityClass, F fragment) {
     ruleChain =
         init(activityClass, fragment)
-            .around(new OpenFragmentRule<>(activityRule, fragment, timeoutSec));
+            .around(new OpenFragmentRule<>(activityRule, fragment));
   }
 
   /**
@@ -67,15 +66,14 @@ public class FragmentTestRule<A extends AppCompatActivity, F extends Fragment> i
    *
    * @param activityClass - class of activity that will be launched.
    * @param fragment - fragment for opening.
-   * @param timeoutSec - timeout for opening fragment.
    * @param component - dagger test component for replacing.
    */
   public FragmentTestRule(
-      Class<A> activityClass, F fragment, int timeoutSec, ApplicationComponent component) {
+      Class<A> activityClass, F fragment, ApplicationComponent component) {
     ruleChain =
         init(activityClass, fragment)
             .around(new TestDaggerComponentRule<>(activityRule, component))
-            .around(new OpenFragmentRule<>(activityRule, fragment, timeoutSec));
+            .around(new OpenFragmentRule<>(activityRule, fragment));
   }
 
   /**

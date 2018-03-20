@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
-/** Tests for {@link NameRepository}. */
 public class NameRepositoryTest {
 
   private static final File FILE = new File("test_file");

@@ -11,7 +11,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Tests for {@link ActivityTestRule} that unlock screen. */
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 

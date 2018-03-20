@@ -6,14 +6,12 @@ import static org.awaitility.Awaitility.await;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import com.testing.MainActivity;
-import com.testing.MainApplication;
 import com.testing.R;
 import com.testing.user.dagger.UserFragment;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Tests for {@link MainApplication} that use Awaitility. */
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 

@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.testing.common.ActivityUtils;
 import com.testing.user.dagger.UserFragment;
 
-/** Main activity that contains container for changing fragments. */
 public class MainActivity extends AppCompatActivity {
 
   @Override

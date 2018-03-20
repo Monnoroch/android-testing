@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-/** Tests for {@link NameRepository}. */
 @RunWith(MockitoJUnitRunner.class)
 public class NameRepositoryTest {
 
@@ -20,7 +19,6 @@ public class NameRepositoryTest {
   @Mock FileReader fileReader;
   NameRepository nameRepository;
 
-  /** Set up. */
   @Before
   public void setUp() throws IOException {
     when(fileReader.readFile()).thenReturn(FILE_CONTENT);

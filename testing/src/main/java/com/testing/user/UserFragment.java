@@ -10,7 +10,6 @@ import com.testing.common.FileReader;
 import java.io.File;
 import java.io.IOException;
 
-/** Screen that show user name. */
 public class UserFragment extends Fragment {
 
   private TextView textView;
