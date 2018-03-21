@@ -55,14 +55,14 @@ public class UserFragmentTest {
     writer.close();
   }
 
+  @After
+  public void tearDown() {
+    file.delete();
+  }
+
   @Test
   public void checkWidthIsZero() {
     ActivityUtils.openFragment(fragmentRule.getActivity(), new UserFragment());
     onView(withText(containsString("Width of name is equals to 0"))).check(matches(isDisplayed()));
-  }
-
-  @After
-  public void tearDown() {
-    file.delete();
   }
 }
