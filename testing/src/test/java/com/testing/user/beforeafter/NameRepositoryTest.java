@@ -35,14 +35,14 @@ public class NameRepositoryTest {
     Assert.assertEquals(name, "Sasha");
   }
 
+  @After
+  public void tearDown() {
+    FILE.delete();
+  }
+
   @Test
   public void getName_notMia() throws Exception {
     String name = nameRepository.getName();
     Assert.assertNotEquals(name, "Mia");
-  }
-
-  @After
-  public void tearDown() {
-    FILE.delete();
   }
 }

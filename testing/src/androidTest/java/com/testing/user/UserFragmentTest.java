@@ -48,14 +48,14 @@ public class UserFragmentTest {
     writer.close();
   }
 
+  @After
+  public void tearDown() {
+    file.delete();
+  }
+
   @Test
   public void getName() {
     ActivityUtils.openFragment(fragmentRule.getActivity(), new UserFragment());
     onView(withText("Sasha")).check(matches(isDisplayed()));
-  }
-
-  @After
-  public void tearDown() {
-    file.delete();
   }
 }
