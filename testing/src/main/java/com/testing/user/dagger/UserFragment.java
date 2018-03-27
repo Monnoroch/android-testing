@@ -7,14 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.testing.MainApplication;
-import com.testing.user.NameRepository;
-import java.io.IOException;
+import com.testing.user.rx.NameRepository;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 
 public class UserFragment extends Fragment {
 
-  @Inject public NameRepository nameRepository;
   private TextView textView;
+  private Disposable disposable;
+  @Inject NameRepository nameRepository;
 
   @Override
   public View onCreateView(
@@ -24,12 +27,19 @@ public class UserFragment extends Fragment {
         .createUserComponent()
         .injectsUserFragment(this);
     textView = new TextView(getActivity());
-    try {
-      textView.setText(nameRepository.getName());
-    } catch (IOException exception) {
-      textView.setText(exception.getMessage());
-    }
-
+    disposable =
+        nameRepository
+            .getName()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(name -> textView.setText(name));
     return textView;
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    disposable.dispose();
+    textView = null;
   }
 }

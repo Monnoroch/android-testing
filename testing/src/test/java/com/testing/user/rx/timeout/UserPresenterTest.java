@@ -20,8 +20,9 @@ import org.robolectric.RobolectricTestRunner;
 @RunWith(RobolectricTestRunner.class)
 public class UserPresenterTest {
 
-  private static final int TIMEOUT_SEC = 2;
-  private static final String NAME = "Sasha";
+  static final int TIMEOUT_SEC = 2;
+  static final String NAME = "Sasha";
+
   @Rule public final MockitoRule rule = MockitoJUnit.rule();
   @Rule public final RxImmediateSchedulerRule timeoutRule = new RxImmediateSchedulerRule();
 
@@ -32,7 +33,7 @@ public class UserPresenterTest {
 
   @Before
   public void setUp() {
-    when(nameRepository.getName()).thenReturn(nameObservable);
+    when(nameRepository.getName()).thenReturn(nameObservable.firstOrError());
     presenter = new UserPresenter(listener, nameRepository);
   }
 

@@ -2,7 +2,6 @@ package com.testing.user.beforeafter;
 
 import static org.apache.maven.artifact.ant.shaded.WriterFactory.UTF_8;
 
-import com.testing.common.FileReader;
 import com.testing.user.NameRepository;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,7 +17,7 @@ public class NameRepositoryTest {
 
   private static final File FILE = new File("test_file");
 
-  NameRepository nameRepository = new NameRepository(new FileReader(FILE));
+  NameRepository nameRepository = new NameRepository(FILE);
 
   @Before
   public void setUp() throws Exception {

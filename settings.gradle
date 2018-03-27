@@ -1,1 +1,1 @@
-include ':testing'
+include ':testing', ':example'

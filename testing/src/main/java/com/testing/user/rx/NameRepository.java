@@ -2,8 +2,7 @@ package com.testing.user.rx;
 
 import com.google.gson.Gson;
 import com.testing.common.FileReader;
-import com.testing.user.User;
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public class NameRepository {
 
@@ -13,11 +12,15 @@ public class NameRepository {
     this.fileReader = fileReader;
   }
 
-  public Observable<String> getName() {
-    return Observable.create(
+  public Single<String> getName() {
+    return Single.create(
         emitter -> {
           Gson gson = new Gson();
-          emitter.onNext(gson.fromJson(fileReader.readFile(), User.class).getName());
+          emitter.onSuccess(gson.fromJson(fileReader.readFile(), User.class).name);
         });
+  }
+
+  private static final class User {
+    String name;
   }
 }

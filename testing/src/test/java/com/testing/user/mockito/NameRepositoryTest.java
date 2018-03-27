@@ -5,21 +5,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.testing.common.FileReader;
-import com.testing.user.NameRepository;
 import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
 public class NameRepositoryTest {
 
-  private static final String FILE_CONTENT = "{name : Sasha}";
-
   FileReader fileReader = mock(FileReader.class);
   NameRepository nameRepository = new NameRepository(fileReader);
 
   @Before
   public void setUp() throws IOException {
-    when(fileReader.readFile()).thenReturn(FILE_CONTENT);
+    when(fileReader.readFile()).thenReturn("{name : Sasha}");
   }
 
   @Test

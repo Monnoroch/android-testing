@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
 import com.testing.common.FileReader;
-import com.testing.user.NameRepository;
+import com.testing.user.mockito.NameRepository;
 import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,14 +15,12 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class NameRepositoryTest {
 
-  private static final String FILE_CONTENT = "{name : Sasha}";
-
   @Mock FileReader fileReader;
   NameRepository nameRepository;
 
   @Before
   public void setUp() throws IOException {
-    when(fileReader.readFile()).thenReturn(FILE_CONTENT);
+    when(fileReader.readFile()).thenReturn("{name : Sasha}");
     nameRepository = new NameRepository(fileReader);
   }
 
