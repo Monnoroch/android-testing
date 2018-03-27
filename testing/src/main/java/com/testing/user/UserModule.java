@@ -2,6 +2,7 @@ package com.testing.user;
 
 import android.content.Context;
 import com.testing.common.FileReader;
+import com.testing.user.rx.NameRepository;
 import dagger.Module;
 import dagger.Provides;
 import java.io.File;

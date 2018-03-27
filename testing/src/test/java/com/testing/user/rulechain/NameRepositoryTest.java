@@ -3,7 +3,7 @@ package com.testing.user.rulechain;
 import com.testing.common.FileReader;
 import com.testing.rules.CreateDirRule;
 import com.testing.rules.CreateFileRule;
-import com.testing.user.NameRepository;
+import com.testing.user.mockito.NameRepository;
 import java.io.File;
 import java.nio.file.Paths;
 import org.junit.Assert;
@@ -15,11 +15,11 @@ public class NameRepositoryTest {
 
   private static final File DIR = new File("test_dir");
   private static final File FILE = Paths.get(DIR.toString(), "test_file").toFile();
-  private static final String FILE_CONTENT = "{name : Sasha}";
 
   @Rule
   public final RuleChain chain =
-      RuleChain.outerRule(new CreateDirRule(DIR)).around(new CreateFileRule(FILE, FILE_CONTENT));
+      RuleChain.outerRule(new CreateDirRule(DIR))
+          .around(new CreateFileRule(FILE, "{name : Sasha}"));
 
   NameRepository nameRepository = new NameRepository(new FileReader(FILE));
 

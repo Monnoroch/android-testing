@@ -1,6 +1,5 @@
 package com.testing.rules;
 
-import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.rule.ActivityTestRule;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -45,7 +44,7 @@ public class FragmentTestRule<A extends AppCompatActivity, F extends Fragment> i
 
   private RuleChain init(Class<A> activityClass, F fragment) {
     this.fragment = fragment;
-    this.activityRule = new IntentsTestRule<>(activityClass, true, true);
+    this.activityRule = new ActivityTestRule<A>(activityClass, true, true);
     return RuleChain.outerRule(activityRule).around(new UnlockScreenRule(activityRule));
   }
 

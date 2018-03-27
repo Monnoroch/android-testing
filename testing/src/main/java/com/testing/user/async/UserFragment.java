@@ -7,43 +7,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.testing.common.FileReader;
-import com.testing.user.NameRepository;
+import com.testing.user.rx.NameRepository;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import java.io.File;
-import java.io.IOException;
 
 public class UserFragment extends Fragment {
 
   private TextView textView;
-  private String name;
+  private Disposable disposable;
 
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    NameRepository nameRepository =
-        new NameRepository(
-            new FileReader(
-                new File(
-                    getContext().getFilesDir().getAbsoluteFile() + File.separator + "test_file")));
     textView = new TextView(getActivity());
-    try {
-      name = nameRepository.getName();
-    } catch (IOException exception) {
-      textView.setText(exception.getMessage());
-      return textView;
-    }
-    textView.post(
-        () -> {
-          if (textView == null) {
-            return;
-          }
-          int nameWidth = textView.getWidth();
-          if (nameWidth == 0) {
-            textView.setText("Width of name is equals to 0");
-          } else {
-            textView.setText(String.format("Width of name %s = %d", name, nameWidth));
-          }
-        });
-
+    disposable =
+        createNameRepository()
+            .getName()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(name -> textView.setText(name));
     return textView;
+  }
+
+  private NameRepository createNameRepository() {
+    return new NameRepository(
+        new FileReader(
+            new File(getContext().getFilesDir().getAbsoluteFile() + File.separator + "test_file")));
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    disposable.dispose();
+    textView = null;
   }
 }

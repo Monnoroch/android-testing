@@ -10,20 +10,6 @@ public class ActivityUtils {
   private ActivityUtils() {}
 
   /**
-   * Replace fragment in R.id.container from fragment.
-   *
-   * @param currentFragment - current fragment for getting fragment manager.
-   * @param newFragment - fragment that will replace old fragment.
-   */
-  public static void openFragment(Fragment currentFragment, Fragment newFragment) {
-    currentFragment
-        .getFragmentManager()
-        .beginTransaction()
-        .replace(R.id.container, newFragment)
-        .commitAllowingStateLoss();
-  }
-
-  /**
    * Replace fragment in R.id.container from activity.
    *
    * @param activity - current AppCompatActivity.

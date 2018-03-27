@@ -39,8 +39,11 @@ class TestDaggerComponentRule<A extends AppCompatActivity> implements TestRule {
         ApplicationComponent originalComponent = application.getComponent();
 
         application.setComponentForTest(component);
-        statement.evaluate();
-        application.setComponentForTest(originalComponent);
+        try {
+          statement.evaluate();
+        } finally {
+          application.setComponentForTest(originalComponent);
+        }
       }
     };
   }

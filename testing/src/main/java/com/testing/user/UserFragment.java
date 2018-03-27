@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.testing.common.FileReader;
+import com.testing.user.mockito.NameRepository;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,18 +18,24 @@ public class UserFragment extends Fragment {
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    NameRepository nameRepository =
-        new NameRepository(
-            new FileReader(
-                new File(
-                    getContext().getFilesDir().getAbsoluteFile() + File.separator + "test_file")));
     textView = new TextView(getActivity());
     try {
-      textView.setText(nameRepository.getName());
+      textView.setText(createNameRepository().getName());
     } catch (IOException exception) {
-      textView.setText(exception.getMessage());
+      throw new RuntimeException(exception);
     }
-
     return textView;
+  }
+
+  private NameRepository createNameRepository() {
+    return new NameRepository(
+        new FileReader(
+            new File(getContext().getFilesDir().getAbsoluteFile() + File.separator + "test_file")));
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    textView = null;
   }
 }
