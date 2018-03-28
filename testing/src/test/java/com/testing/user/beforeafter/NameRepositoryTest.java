@@ -28,15 +28,15 @@ public class NameRepositoryTest {
     writer.close();
   }
 
+  @After
+  public void tearDown() {
+    FILE.delete();
+  }
+
   @Test
   public void getName_isSasha() throws Exception {
     String name = nameRepository.getName();
     Assert.assertEquals(name, "Sasha");
-  }
-
-  @After
-  public void tearDown() {
-    FILE.delete();
   }
 
   @Test
