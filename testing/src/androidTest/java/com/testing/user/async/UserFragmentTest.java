@@ -34,7 +34,7 @@ public class UserFragmentTest {
           .around(new FragmentTestRule<>(MainActivity.class, new UserFragment()));
 
   @Test
-  public void awaitTextViewHasText() {
+  public void nameDisplayed() {
     await()
         .atMost(5, SECONDS)
         .ignoreExceptions()
