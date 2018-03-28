@@ -1,5 +1,6 @@
 package com.testing.user.rx.timeout;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -7,7 +8,6 @@ import static org.mockito.Mockito.when;
 import com.testing.rules.RxImmediateSchedulerRule;
 import com.testing.user.rx.NameRepository;
 import io.reactivex.subjects.PublishSubject;
-import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,7 +40,7 @@ public class UserPresenterTest {
   @Test
   public void getUserName() {
     presenter.getUserName();
-    timeoutRule.getTestScheduler().advanceTimeBy(TIMEOUT_SEC - 1, TimeUnit.SECONDS);
+    timeoutRule.getTestScheduler().advanceTimeBy(TIMEOUT_SEC - 1, SECONDS);
     nameObservable.onNext(NAME);
     verify(listener).onUserNameLoaded(NAME);
   }
@@ -48,7 +48,7 @@ public class UserPresenterTest {
   @Test
   public void getUserName_timeout() {
     presenter.getUserName();
-    timeoutRule.getTestScheduler().advanceTimeBy(TIMEOUT_SEC + 1, TimeUnit.SECONDS);
+    timeoutRule.getTestScheduler().advanceTimeBy(TIMEOUT_SEC + 1, SECONDS);
     nameObservable.onNext(NAME);
     verify(listener).onGettingUserNameError(any());
   }
