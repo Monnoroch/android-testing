@@ -25,7 +25,7 @@ public class UserFragmentTest {
           .around(new FragmentTestRule<>(MainActivity.class, new UserFragment()));
 
   @Test
-  public void getName() {
+  public void nameDisplayed() {
     onView(withText("Sasha")).check(matches(isDisplayed()));
   }
 
