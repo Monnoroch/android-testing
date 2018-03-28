@@ -1,10 +1,11 @@
 package com.testing.user.debug;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import com.testing.BuildConfig;
 import com.testing.user.rx.NameRepository;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class UserPresenter {
@@ -28,7 +29,7 @@ public class UserPresenter {
   public void getUserName() {
     nameRepository
         .getName()
-        .timeout(2, TimeUnit.SECONDS)
+        .timeout(2, SECONDS)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(

@@ -18,8 +18,7 @@ import org.junit.runners.model.Statement;
 public class RxImmediateSchedulerRule implements TestRule {
 
   private static final TestScheduler TEST_SCHEDULER = new TestScheduler();
-
-  private Scheduler immediate =
+  private static final Scheduler IMMEDIATE_SCHEDULER =
       new Scheduler() {
         @Override
         public Disposable scheduleDirect(Runnable run, long delay, TimeUnit unit) {
@@ -41,7 +40,7 @@ public class RxImmediateSchedulerRule implements TestRule {
         RxJavaPlugins.setIoSchedulerHandler(scheduler -> TEST_SCHEDULER);
         RxJavaPlugins.setComputationSchedulerHandler(scheduler -> TEST_SCHEDULER);
         RxJavaPlugins.setNewThreadSchedulerHandler(scheduler -> TEST_SCHEDULER);
-        RxAndroidPlugins.setMainThreadSchedulerHandler(scheduler -> immediate);
+        RxAndroidPlugins.setMainThreadSchedulerHandler(scheduler -> IMMEDIATE_SCHEDULER);
         try {
           base.evaluate();
         } finally {
