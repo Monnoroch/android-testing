@@ -13,8 +13,6 @@ public class UserPresenter {
     void onGettingUserNameError(String message);
   }
 
-  private static final int TIMEOUT_SEC = 2;
-
   private final Listener listener;
   private final NameRepository nameRepository;
 
@@ -26,7 +24,7 @@ public class UserPresenter {
   public void getUserName() {
     nameRepository
         .getName()
-        .timeout(TIMEOUT_SEC, TimeUnit.SECONDS)
+        .timeout(2, TimeUnit.SECONDS)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
