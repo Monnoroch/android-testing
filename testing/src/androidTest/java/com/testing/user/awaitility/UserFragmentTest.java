@@ -21,12 +21,10 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class UserFragmentTest {
 
-  public final FragmentTestRule<MainActivity, UserFragment> fragmentRule =
-      new FragmentTestRule<>(MainActivity.class, new UserFragment());
-
   @Rule
   public final RuleChain rules =
-      RuleChain.outerRule(new CreateFileRule(getTestFile(), "{name : Sasha}")).around(fragmentRule);
+      RuleChain.outerRule(new CreateFileRule(getTestFile(), "{name : Sasha}"))
+          .around(new FragmentTestRule<>(MainActivity.class, new UserFragment()));
 
   @Test
   public void awaitTextViewHasText() {
