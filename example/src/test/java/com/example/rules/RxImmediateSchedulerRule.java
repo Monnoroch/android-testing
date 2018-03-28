@@ -18,8 +18,7 @@ import org.junit.runners.model.Statement;
 public class RxImmediateSchedulerRule implements TestRule {
 
   private static final TestScheduler TEST_SCHEDULER = new TestScheduler();
-
-  private Scheduler IMMEDIATE_SCHEDULER =
+  private static final Scheduler IMMEDIATE_SCHEDULER =
       new Scheduler() {
         @Override
         public Disposable scheduleDirect(Runnable run, long delay, TimeUnit unit) {
