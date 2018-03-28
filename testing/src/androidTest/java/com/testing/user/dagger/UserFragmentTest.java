@@ -40,7 +40,7 @@ public class UserFragmentTest {
           MainActivity.class, new UserFragment(), createTestApplicationComponent());
 
   @Test
-  public void awaitTextViewHasText() {
+  public void nameDisplayed() {
     await()
         .atMost(5, SECONDS)
         .ignoreExceptions()

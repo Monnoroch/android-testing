@@ -33,7 +33,7 @@ public class UserFragmentTest {
           MainActivity.class, new UserFragment(), createTestApplicationComponent());
 
   @Test
-  public void assertGetNameMethodWasCalled() {
+  public void getNameMethodCalledOnCreate() {
     verify(fragmentRule.getFragment().userPresenter).getUserName();
   }
 
