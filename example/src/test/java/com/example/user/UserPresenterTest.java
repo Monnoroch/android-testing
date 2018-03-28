@@ -43,7 +43,7 @@ public class UserPresenterTest {
     presenter.getUserName();
     timeoutRule.getTestScheduler().advanceTimeBy(TIMEOUT_SEC - 1, TimeUnit.SECONDS);
     nameObservable.onNext(NAME);
-    verify(listener).onUserNameLoaded("Sasha");
+    verify(listener).onUserNameLoaded(NAME);
   }
 
   @Test
